@@ -1,6 +1,6 @@
-# EZRent - Proyek Akhir PAW 2024
+# EZRent - Tugas Akhir PAW 2024
 
->EZRent dibuat untuk keperluan Proyek Akhir mata kuliah Pengembangan Aplikasi Web kelas TI-D
+>EZRent dibuat untuk keperluan Tugas Akhir mata kuliah Pengembangan Aplikasi Web kelas TI-D
 
 ## Data Diri
 
