@@ -3,7 +3,7 @@ class PostModel extends Model
 {
     public function getAll()
     {
-        $sql = 'SELECT * FROM post ORDER BY id DESC';
+        $sql = 'SELECT * FROM items ORDER BY id DESC';
         return $this->mysqli->query($sql);
     }
 
