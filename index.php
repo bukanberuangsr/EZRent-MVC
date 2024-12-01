@@ -3,7 +3,7 @@
 
 error_reporting(~E_NOTICE);
 // 'Home' is the default controller
-$controller = $_GET['c'] ?? 'Post';
+$controller = $_GET['c'] ?? 'Items';
 // 'index' is the default method
 $method = $_GET['m'] ?? 'index';
 
