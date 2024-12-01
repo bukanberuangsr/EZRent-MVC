@@ -1,13 +1,13 @@
 <?php
-class Post extends Controller
+class Items extends Controller
 {
 
     public function index()
     {
         // Load model
-        $postModel = $this->loadModel('PostModel');
+        $itemModel = $this->loadModel('ItemModel');
         // Get data from the model
-        $posts = $postModel->getAll();      // Load the view
+        $posts = $itemModel->getAll();      // Load the view
         $this->loadView('posts', ['posts' => $posts]);
     }
 
@@ -20,11 +20,11 @@ class Post extends Controller
 
     public function create_process()
     {
-        $postModel = $this->loadModel('PostModel');
+        $itemModel = $this->loadModel('ItemModel');
         $title = addslashes($_POST['title']);
         $content = addslashes($_POST['content']);
-        $postModel->insert($title, $content);
-        header('Location: ?c=Post');
+        $itemModel->insert($title, $content);
+        header('Location: ?c=Items');
         exit;
     }
 
@@ -33,12 +33,12 @@ class Post extends Controller
     {
         $id = $_GET['id'];
 
-        if (!$id) header('Location: index.php?c=Post');
+        if (!$id) header('Location: index.php?c=Items');
 
-        $postModel = $this->loadModel('PostModel');
-        $post = $postModel->getById($id);
+        $itemModel = $this->loadModel('ItemModel');
+        $post = $itemModel->getById($id);
 
-        if (!$post->num_rows) header('Location: index.php?c=Post');
+        if (!$post->num_rows) header('Location: index.php?c=Items');
 
         $this->loadView('edit', ['post' => $post->fetch_object()]);
     }
@@ -46,26 +46,24 @@ class Post extends Controller
 
     public function update()
     {
-        $postModel = $this->loadModel('PostModel');
+        $itemModel = $this->loadModel('ItemModel');
 
         $id = $_POST['id'];
         $title = addslashes($_POST['title']);
         $content = addslashes($_POST['content']); //agar karakter aneh2 bisa kebaca, menghindari sql injection
-        // $title = $_POST['title'];
-        // $content = $_POST['content'];
 
-        $postModel->update($id, $title, $content);
-        header('Location: ?c=Post');
+        $itemModel->update($id, $title, $content);
+        header('Location: ?c=Items');
     }
 
     public function delete()
     {
         $id = $_POST['id'];
 
-        $postModel = $this->loadModel('PostModel');
-        $postModel->delete($id);
+        $itemModel = $this->loadModel('ItemModel');
+        $itemModel->delete($id);
 
         // redirect to post list after delete
-        header('location:?c=Post');
+        header('location:?c=Items');
     }
 }
