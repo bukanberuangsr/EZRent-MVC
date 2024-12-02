@@ -18,7 +18,7 @@
             <br><br>
             <input class="submit" type="submit" name="submit" value="Login">
         </form>
-        <a href="?c=Controller&m=register">Register here</a>
+        <a href="?c=Auth&m=register">Register here</a>
     </div>
 </body>
 </html>
