@@ -1,11 +1,15 @@
 <title>EZRent-MVC</title>
 <?php
+session_start();
 
-error_reporting(~E_NOTICE);
-// 'Home' is the default controller
-$controller = $_GET['c'] ?? 'Items';
-// 'index' is the default method
 $method = $_GET['m'] ?? 'index';
+
+// Cek login
+if (isset($_SESSION["username"])) {
+    $controller = $_GET['c'] ?? 'Items';
+} else {
+    $controller = $_GET['c'] ?? 'Auth';
+}
 
 include_once "controller/Controller.class.php";
 include_once "controller/$controller.class.php";// Go!
