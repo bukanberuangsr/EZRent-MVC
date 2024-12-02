@@ -7,8 +7,9 @@ class Items extends Controller
         // Load model
         $itemModel = $this->loadModel('ItemModel');
         // Get data from the model
-        $posts = $itemModel->getAll();      // Load the view
-        $this->loadView('posts', ['posts' => $posts]);
+        $items = $itemModel->getAll();
+        // Load the view
+        $this->loadView('items', ['items' => $items]);
     }
 
 
