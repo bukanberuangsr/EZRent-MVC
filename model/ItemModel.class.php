@@ -19,10 +19,11 @@ class ItemModel extends Model
         return $this->mysqli->query($sql);
     }
 
-    public function update($id, $name, $description)
+    public function update($id, $name, $description, $available, $image)
     {
-        $sql = "UPDATE items SET name = '$name', description = '$description' WHERE id = '$id'";
-        $this->mysqli->query($sql);
+        $stmt = $this->mysqli->prepare("UPDATE items SET name = ?, description = ?, available = ?, image = ? WHERE id = ?");
+        $stmt->bind_param("ssisi", $name, $description, $available, $image, $id);
+        return $stmt->execute();
     }
 
     public function delete($id)
