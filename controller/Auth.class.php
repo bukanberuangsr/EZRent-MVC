@@ -10,35 +10,32 @@ class Auth extends Controller
         $this->loadView('register');
     }
 
-    public function login()
+    public function loginSubmit(): void
     {
-        session_start();
-        $userModel = $this->loadModel("users");
-        $error_message = '';
+        $username = addslashes($_POST['username']);
+        $password = addslashes($_POST['password']);
+        $authModel = $this->loadModel('AuthModel');
+        $users = $authModel->findByUsername($username);
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
-            $user = $userModel->findByUsername($username);
-
-            if ($user && password_verify($password, $user['userpass'])) {
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['is_admin'] = $user['is_admin'];
-
-                $redirect = $user['is_admin'] ? "/view/admin/dashboard" : "/index.php";
-                header('Location' . $redirect);
-                exit();
+        if ($users->num_rows > 0) {
+            $row = $users->fetch_assoc();
+            if (password_verify($password, $row['userpass'])) {
+                echo "<script>alert('Login berhasil!');</script>";
+                $_SESSION['username'] = $row['username'];
             } else {
-                $error_message = "Username or Password is Incorrect!";
+                echo "<script>alert('Password salah!');</script>";
             }
+        } else {
+            echo "<script>alert('Username tidak ditemukan!');</script>";
         }
-        this->loadView('login', ['error_message'=> $error_message]);
+        if (isset($_SESSION["username"]))
+            echo "<script>window.location.href = '?c=Items';</script>";
+        else
+            echo "<script>window.location.href = '?=c=Auth';</script>";
     }
 
     public function registerSubmit()
     {
-        session_start();
         $error_message = '';
         $success_message = '';
 
@@ -51,7 +48,15 @@ class Auth extends Controller
                 $error_message = 'Password did not match!';
             } else {
                 $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
-                
+
+                $authModel = $this->loadModel('AuthModel');
+                if ($authModel->insert($username, $hashed_pass)) {
+                    $success_message = "Registration Successful!";
+                    header('Location: index.php?c=Auth&m=index');
+                    exit();
+                } else {
+                    $error_message = 'Registration failed!';
+                }
             }
         }
     }
@@ -60,7 +65,7 @@ class Auth extends Controller
     {
         session_start();
         session_destroy();
-        header('Location: index.php?c=Auth&m=login');
+        header('Location: index.php?c=Auth');
         exit();
     }
 }

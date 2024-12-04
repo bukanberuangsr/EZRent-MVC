@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1 class="header">Login</h1>
-        <form action="?c=Controller&m=login" method="post">
+        <form action="?c=Auth&m=loginSubmit" method="post">
             <label for="username">Username:</label><br>
             <input class="input" type="text" name="username" required>
             <br><br>
