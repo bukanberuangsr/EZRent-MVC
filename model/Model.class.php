@@ -5,7 +5,6 @@
     public function __construct()
     {
         $dbhostname = 'localhost';
-
         $dbusername = 'root';
         $dbpassword = '';
         $dbname = 'ezrent';
