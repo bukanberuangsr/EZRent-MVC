@@ -9,7 +9,7 @@
 <body>
 <div class="container">
         <h1>Upload New Item</h1>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="?c=Items&=create_process" method="post" enctype="multipart/form-data">
             <label for="name">Item Name:</label><br>
             <input type="text" name="name" required><br><br>
 
@@ -24,6 +24,7 @@
 
             <input type="submit" name="submit" value="Add Item">
         </form>
+        <a href="?c=Items&m=index">Go back</a>
     </div>
 </body>
 </html>
