@@ -14,6 +14,7 @@
         $item->id);
         echo "<p align=\"justify\">$item->description</p>";
     }
+    echo "<a href=\"?c=Auth&m=logout\">Log out</a>";
 }
 
 ?>
