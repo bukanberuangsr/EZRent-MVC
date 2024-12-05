@@ -3,7 +3,7 @@
     <h1>Edit Item</h1>
 </div>
 <div class="container">
-    <form action="Post&m=update" method="post" enctype="multipart/form-data">
+    <form action="Items&m=update" method="post" enctype="multipart/form-data">
         <label for="name">Item Name:</label><br>
         <input type="text" name="name" value="<?php echo htmlspecialchars($item['name']); ?>" required><br><br>
 
