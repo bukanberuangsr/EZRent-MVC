@@ -7,10 +7,13 @@ class ItemModel extends Model
         return $this->mysqli->query($sql);
     }
 
-    public function insert($name, $description)
+    public function insert($name, $description, $available, $image)
     {
-        $sql = "INSERT INTO items (name, description) VALUES ('$name', '$description')";
-        $this->mysqli->query($sql);
+        $stmt = $this->mysqli->prepare(
+            "INSERT INTO items (`name`, `description`, `available`, `image`)
+            VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssis", $name, $description, $available, $image);
+        return $stmt->execute();
     }
 
     public function getById($id)
@@ -21,7 +24,7 @@ class ItemModel extends Model
 
     public function update($id, $name, $description, $available, $image)
     {
-        $stmt = $this->mysqli->prepare("UPDATE items SET name = ?, description = ?, available = ?, image = ? WHERE id = ?");
+        $stmt = $this->mysqli->prepare("UPDATE items SET `name` = ?, `description` = ?, `available` = ?, `image` = ? WHERE `id` = ?");
         $stmt->bind_param("ssisi", $name, $description, $available, $image, $id);
         return $stmt->execute();
     }
