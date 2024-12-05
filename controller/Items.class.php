@@ -4,11 +4,8 @@ class Items extends Controller
 
     public function index()
     {
-        // Load model
         $itemModel = $this->loadModel('ItemModel');
-        // Get data from the model
         $items = $itemModel->getAll();
-        // Load the view
         $this->loadView('items', ['items' => $items]);
     }
 
@@ -30,7 +27,6 @@ class Items extends Controller
 
         $itemModel->insert($title, $description, $available, $image);
         header('Location: ?c=Items');
-        exit;
     }
 
 
@@ -55,11 +51,11 @@ class Items extends Controller
 
         $id = $_POST['id'];
         $title = addslashes($_POST['name']);
-        $description = addslashes($_POST['description']);
+        $description = addcslashes($_POST['description']);
         $available = addslashes($_POST['available']);
         $image = $this->handleImageUpload(); //agar karakter aneh2 bisa kebaca, menghindari sql injection
 
-        $itemModel->update($id, $title, $content);
+        $itemModel->update($id, $title, $description, $available, $image);
         header('Location: ?c=Items');
     }
 
@@ -74,27 +70,25 @@ class Items extends Controller
         header('location:?c=Items');
     }
 
-    public function handleImageUpload()
+    private function handlePosterUpload(): ?string
     {
-        if ($_FILES['image']['error'] == 0) {
-            $target_dir = "/uploads/"; // Folder to store uploaded images
-            $target_file = $target_dir . basename($_FILES['image']['name']);
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-            $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
+        if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $target_path = "uploads/";
+            $target_path = $target_path . basename($_FILES['image']['name']);
 
-            // Check if the file type is allowed
-            if (in_array($imageFileType, $allowed_types)) {
-                // Move uploaded file to the target directory
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-                    $image = $target_file; // Save the file path
-                } else {
-                    echo "Sorry, there was an error uploading the image.";
-                }
-            } else {
-                echo "Only JPG, JPEG, PNG & GIF files are allowed.";
+            if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+            echo "<script>alert('File upload error: " . $_FILES['image']['error'] . "');</script>";
+            echo "<script>window.location.href = '?c=Items';</script>";
             }
-        } else {
-            echo "No image uploaded.";
+
+            if (!move_uploaded_file($_FILES['image']['tmp_name'], $target_path)) {
+            echo "<script>alert('There was an error uploading the file, please try again!');</script>";
+            echo "<script>window.location.href = '?c=Items';</script>";
+            }
+
+            return $target_path;
         }
+
+        return null;
     }
 }
