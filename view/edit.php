@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../style/style.css">
+<link rel="stylesheet" href="/style/style.css">
 <div class="hero-sm">
     <h1>Edit Item</h1>
 </div>
