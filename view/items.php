@@ -13,7 +13,9 @@
         </form>',
         $item->id);
         echo "<p align=\"justify\">$item->description</p>";
+        echo "<img src=\"$item->image\">";
     }
+    echo "<br>";
     echo "<a href=\"?c=Auth&m=logout\">Log out</a>";
 }
 
