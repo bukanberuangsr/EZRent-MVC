@@ -9,7 +9,7 @@
 <body>
 <div class="container">
         <h1>Upload New Item</h1>
-        <form action="?c=Items&=create_process" method="post" enctype="multipart/form-data">
+        <form action="?c=Items&m=create_process" method="post" enctype="multipart/form-data">
             <label for="name">Item Name:</label><br>
             <input type="text" name="name" required><br><br>
 
