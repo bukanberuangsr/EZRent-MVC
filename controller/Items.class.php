@@ -37,11 +37,11 @@ class Items extends Controller
         if (!$id) header('Location: index.php?c=Items');
 
         $itemModel = $this->loadModel('ItemModel');
-        $post = $itemModel->getById($id);
+        $item = $itemModel->getById($id);
 
-        if (!$post->num_rows) header('Location: index.php?c=Items');
+        if (!$item->num_rows) header('Location: index.php?c=Items');
 
-        $this->loadView('edit', ['post' => $post->fetch_object()]);
+        $this->loadView('edit', ['item' => $item->fetch_object()]);
     }
 
 
@@ -70,7 +70,7 @@ class Items extends Controller
         header('location:?c=Items');
     }
 
-    private function handlePosterUpload(): ?string
+    private function handleImageUpload(): ?string
     {
         if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
             $target_path = "uploads/";
