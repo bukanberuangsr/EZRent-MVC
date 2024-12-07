@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="/style/style.css">
-<a href="?c=Items&m=create_form">Add new Item</a><br>
-<div class="content">
+<nav>
+    <a href="?c=Items&m=create_form">Add new Item</a>
+    <a href="?c=Auth&m=logout" class="logout">Log Out</a>
+</nav>
 
+<div class="content">
 <?php if (!$items->num_rows) {
     echo 'No posts.';
 } else {
@@ -14,11 +17,9 @@
         <input type="submit" value="Delete">
         </form>',
         $item->id);
-        echo "<p align=\"justify\">$item->description</p>";
+        echo "<p id=\"description\" align=\"justify\">$item->description</p>";
         echo "<img src=\"$item->image\">";
     }
-    echo "<br>";
-    echo "<a href=\"?c=Auth&m=logout\">Log out</a>";
 }
 ?>
 </div>
