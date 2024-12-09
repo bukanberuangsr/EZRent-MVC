@@ -9,6 +9,7 @@
     echo 'No posts.';
 } else {
     while ($item = $items->fetch_object()) {
+        echo "<div class='desc'>";
         echo "<h3>$item->name</h3>";
         echo "<a href=\"?c=Items&m=edit&id=$item->id\">Edit</a>";
         printf('
@@ -17,8 +18,11 @@
         <input type="submit" value="Delete">
         </form>',
         $item->id);
-        echo "<p id=\"description\" align=\"justify\">$item->description</p>";
+        echo "<p align=\"justify\">$item->description</p>";
+        echo "<div class='desc-img'>";
         echo "<img src=\"$item->image\">";
+        echo "</div>";
+        echo "</div>";
     }
 }
 ?>
