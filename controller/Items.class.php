@@ -53,7 +53,7 @@ class Items extends Controller
         $title = addslashes($_POST['name']);
         $description = addslashes($_POST['description']);
         $available = addslashes($_POST['available']);
-        $image = $this->handleImageUpload(); //agar karakter aneh2 bisa kebaca, menghindari sql injection
+        $image = $this->handleImageUpload();
 
         $itemModel->update($id, $title, $description, $available, $image);
         header('Location: ?c=Items');
