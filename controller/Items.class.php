@@ -51,7 +51,7 @@ class Items extends Controller
 
         $id = $_POST['id'];
         $title = addslashes($_POST['name']);
-        $description = addcslashes($_POST['description']);
+        $description = addslashes($_POST['description']);
         $available = addslashes($_POST['available']);
         $image = $this->handleImageUpload(); //agar karakter aneh2 bisa kebaca, menghindari sql injection
 
